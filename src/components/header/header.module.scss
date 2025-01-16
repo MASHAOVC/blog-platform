@@ -1,33 +1,33 @@
 @import '../../scss/variables';
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-base;
+  height: 80px;
+  padding: 0 22px;
+  font-size: 18px;
+  font-weight: $font-weight-normal;
+  color: $color-text-heading;
+
+  .heading {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .button-groups-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $color-base;
-    height: 80px;
-    padding: 0 22px;
-    font-size: 18px;
-    font-weight: $font-weight-normal;
-    color: $color-text-heading;
+    gap: 5px;
+  }
 
-    .heading {
-        font-size: inherit;
-        font-weight: inherit;
-    }
+  .buttons-not-authorized {
+    display: flex;
+    gap: 19px;
+  }
 
-    .button-groups-wrapper {
-        display: flex;
-        gap: 5px;
-    }
-
-    .buttons-not-authorized {
-        display: flex;
-        gap: 19px;
-    }
-
-    .buttons-authorized {
-        display: flex;
-        gap: 27px;
-    }
+  .buttons-authorized {
+    display: flex;
+    gap: 27px;
+  }
 }
