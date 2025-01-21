@@ -1,0 +1,8 @@
+@import '../../scss/variables';
+
+.articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    justify-self: center;
+}

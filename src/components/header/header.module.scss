@@ -10,24 +10,85 @@
   font-size: 18px;
   font-weight: $font-weight-normal;
   color: $color-text-heading;
+  margin-bottom: 26px;
 
-  .heading {
-    font-size: inherit;
-    font-weight: inherit;
-  }
+    .button {
+        background: none;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        font-family: inherit;
 
-  .button-groups-wrapper {
-    display: flex;
-    gap: 5px;
-  }
+        &:hover {
+            opacity: 0.5;
+                cursor: pointer;
+        }
+    }
 
-  .buttons-not-authorized {
-    display: flex;
-    gap: 19px;
-  }
+    .heading {
+        font-size: inherit;
+        font-weight: inherit;
+    }
 
-  .buttons-authorized {
-    display: flex;
-    gap: 27px;
-  }
+    .button-groups-wrapper {
+        display: flex;
+        gap: 5px;
+    }
+
+    .buttons-not-authorized {
+        display: flex;
+        gap: 19px;
+
+        &__sign-in {
+            border: none;
+            color: $color-text-heading;
+            font-size: inherit;
+        }
+
+        &__sign-up {
+            width: 109px;
+            height: 51px;
+            border: 1px solid $color-success;
+            color: $color-success;
+            border-radius: 5px;
+            font-size: inherit;
+        }
+    }
+
+    .buttons-authorized {
+        display: flex;
+        gap: 27px;
+
+        &__create-article {
+            width: 112px;
+            height: 31px;
+            align-self: center;
+            border: 1px solid $color-success;
+            border-radius: 5px;
+            font-size: $font-size-sm;
+            color: $color-success;
+        }
+
+        &__user {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            border: none;
+            color: $color-text-heading;
+            font-size: inherit;
+        }
+
+        &__avatar {
+            width: 46px;
+            height: 46px;
+        }
+
+        &__log-out {
+            width: 109px;
+            height: 51px;
+            border: 1px solid $color-text;
+            border-radius: 5px;
+            color: $color-text;
+            font-size: inherit;
+        }
+    }
 }
