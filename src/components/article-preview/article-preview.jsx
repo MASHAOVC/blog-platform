@@ -8,7 +8,7 @@ export const ArticlePreview = () => {
           <a className={styles['header__title']}>Some article title</a>
           <span className={styles['header__rating']}>
             <button className={styles['header__button']}>
-              <img className={styles['header__heart']} src="src/assets/heart.svg" />
+              <img className={styles['header__heart']} src="src/assets/heart.svg" alt="Like this article" />
             </button>
             12
           </span>
@@ -28,6 +28,7 @@ export const ArticlePreview = () => {
         <img
           className={styles['user-avatar']}
           src="https://production-media-prisoner-of-payload.s3.amazonaws.com/media/imgbin_computer-icons-woman-avatar-png-1.png"
+          alt="User Avatar"
         />
       </div>
     </div>

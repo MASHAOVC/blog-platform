@@ -3,6 +3,7 @@ import { ConfigProvider } from 'antd';
 
 import Header from '../header';
 import ArticlesList from '../articles-list';
+import ArticleCard from '../article-card';
 
 export const App = () => {
   return (
@@ -20,10 +21,11 @@ export const App = () => {
         },
       }}
     >
-      <main className={styles['app']}>
+      <div className={styles['app']}>
         <Header />
-        <ArticlesList />
-      </main>
+        {/* <ArticlesList /> */}
+        {/* <ArticleCard/> */}
+      </div>
     </ConfigProvider>
   );
 };
