@@ -4,6 +4,7 @@ import { ConfigProvider } from 'antd';
 import Header from '../header';
 import ArticlesList from '../articles-list';
 import ArticleCard from '../article-card';
+import CreateAccountForm from '../create-account-form';
 
 export const App = () => {
   return (
@@ -23,8 +24,9 @@ export const App = () => {
     >
       <div className={styles['app']}>
         <Header />
-        {/* <ArticlesList /> */}
+        {/* <ArticlesList/> */}
         {/* <ArticleCard/> */}
+        <CreateAccountForm />
       </div>
     </ConfigProvider>
   );

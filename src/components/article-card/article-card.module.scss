@@ -2,12 +2,12 @@
 
 .article-card {
   width: 938px;
-  height: 807px;
   justify-self: center;
   box-sizing: border-box;
   padding: 15px 14px 0px 16px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
   background-color: $color-base;
+  margin-top: 26px;
 
   .header {
     display: flex;
