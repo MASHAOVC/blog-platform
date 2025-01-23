@@ -1,104 +1,102 @@
 @import '../../scss/variables.scss';
 
 .article-card {
-    width: 938px;
-    height: 807px;
-    justify-self: center;
-    box-sizing: border-box;
-    padding: 15px 14px 0px 16px;
-    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
-    background-color: $color-base;
+  width: 938px;
+  height: 807px;
+  justify-self: center;
+  box-sizing: border-box;
+  padding: 15px 14px 0px 16px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  background-color: $color-base;
 
-    .header {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .title-line {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 25px;
-      
-        .wrapper {
-          display: flex;
-          flex-direction: column;
-      
-          .title-line {
-            display: flex;
-            gap: 13px;
-            margin-bottom: 4px;
-      
-            &__title {
-              color: $color-primary;
-              font-size: $font-size-xlg;
-            }
-      
-            &__rating {
-              display: flex;
-              align-items: center;
-              color: $color-text;
-              font-size: $font-size-xs;
-              gap: 5px;
-            }
-      
-            &__button {
-              background: none;
-              border: none;
-              padding: 0;
-      
-              &:hover {
-                  cursor: pointer;
-              }
-            }
-      
-            &__heart {
-              display: flex;
-              align-self: center;
-            }
-          }
-      
-          .tag {
-            width: 38px;
-            height: 20px;
-            color: $color-text-secondary;
-            border: 1px solid $color-text-secondary;
-            border-radius: 2px;
-            font-size: $font-size-xs;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 16px;
-          }
-      
-          .preview-paragraph {
-            width: 682px;
-            color: $color-text-secondary;
-            font-size: $font-size-xs;
-            line-height: 22px;
-            margin: 0;
-          }
-        }
-      
-        .user-wrapper {
-          display: flex;
-          gap: 12px;
-      
-          .info {
-            display: flex;
-            flex-direction: column;
-      
-            &__user-name {
-              font-size: $font-size-lg;
-              color: $color-text-heading;
-            }
-      
-            &__publication-date {
-              font-size: $font-size-xs;
-              color: $color-text-secondary;
-            }
-          }
-      
-          .user-avatar {
-            width: 46px;
-            height: 46px;
-          }
-        }
-    }
-}
+        gap: 13px;
+        margin-bottom: 4px;
 
-  
+        &__title {
+          color: $color-primary;
+          font-size: $font-size-xlg;
+        }
+
+        &__rating {
+          display: flex;
+          align-items: center;
+          color: $color-text;
+          font-size: $font-size-xs;
+          gap: 5px;
+        }
+
+        &__button {
+          background: none;
+          border: none;
+          padding: 0;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        &__heart {
+          display: flex;
+          align-self: center;
+        }
+      }
+
+      .tag {
+        width: 38px;
+        height: 20px;
+        color: $color-text-secondary;
+        border: 1px solid $color-text-secondary;
+        border-radius: 2px;
+        font-size: $font-size-xs;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .preview-paragraph {
+        width: 682px;
+        color: $color-text-secondary;
+        font-size: $font-size-xs;
+        line-height: 22px;
+        margin: 0;
+      }
+    }
+
+    .user-wrapper {
+      display: flex;
+      gap: 12px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+
+        &__user-name {
+          font-size: $font-size-lg;
+          color: $color-text-heading;
+        }
+
+        &__publication-date {
+          font-size: $font-size-xs;
+          color: $color-text-secondary;
+        }
+      }
+
+      .user-avatar {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  }
+}
