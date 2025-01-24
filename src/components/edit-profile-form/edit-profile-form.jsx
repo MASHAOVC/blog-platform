@@ -4,14 +4,19 @@ export const EditProfileForm = () => {
   return (
     <form className={styles['edit-profile-form']}>
       <h1 className={styles['heading']}>Edit Profile</h1>
-      <div className={styles['form-group']}>
+      <div className={styles['fields-group']}>
         <label className={styles['label']}>
           Username
-          <input className={styles['input-field']} placeholder="Username" />
+          <input className={`${styles['input-field']} ${styles['filled']}`} value="John Doe" onChange={() => {}} />
         </label>
         <label className={styles['label']}>
           Email address
-          <input className={styles['input-field']} type="email" placeholder="Email address" />
+          <input
+            className={`${styles['input-field']} ${styles['filled']}`}
+            type="email"
+            value="john@example.com"
+            onChange={() => {}}
+          />
         </label>
         <label className={styles['label']}>
           New password
@@ -19,7 +24,7 @@ export const EditProfileForm = () => {
         </label>
         <label className={styles['label']}>
           Avatar image (url)
-          <input className={styles['input-field']} type="password" placeholder="Avatar image" />
+          <input className={styles['input-field']} placeholder="Avatar image" />
         </label>
       </div>
       <button className={styles['submit-button']} type="submit">

@@ -2,84 +2,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 .sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  justify-self: center;
+  align-items: center;
+  width: 384px;
+  background-color: $color-base;
+  margin-top: 59px;
+  border-radius: 6px;
+  padding: 48px 36px;
+  box-sizing: border-box;
+  box-shadow: $form-shadows;
+  font-family: $font-secondary;
+  border: 1px solid $color-border;
+
+  .heading {
+    font-size: $font-size-xlg;
+    color: $color-form-text-heading;
+    margin: 0;
+  }
+
+  .fields-group {
     display: flex;
     flex-direction: column;
-    gap: 21px;
-    justify-self: center;
-    align-items: center;
-    width: 384px;
-    background-color: $color-base;
-    margin-top: 59px;
-    border-radius: 6px;
-    padding: 48px 36px;
-    box-sizing: border-box;
-    box-shadow: $form-shadows;
-    font-family: $font-secondary;
+    gap: 12px;
 
-    .heading {
-        font-size: $font-size-xlg;
-        color: $color-form-text-heading;
-        margin: 0;
+    .label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: $font-size-sm;
+      color: $color-form-text-heading;
+
+      .input-field {
+        width: 320px;
+        height: 40px;
+        padding: 8px 12px;
+        box-sizing: border-box;
+        font-size: $font-size-md;
+        color: $color-text;
+        border: 1px solid $color-border;
+        border-radius: 4px;
+        font-weight: 400;
       }
-    
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    
-        .label {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          font-size: $font-size-sm;
-          color: $color-form-text-heading;
-    
-          .input-field {
-            width: 320px;
-            height: 40px;
-            padding: 8px 12px;
-            box-sizing: border-box;
-            font-size: $font-size-md;
-            color: $color-form-text-placeholder;
-            border: 1px solid $color-border;
-            border-radius: 4px;
-            font-weight: 400;
-          }
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    .submit-button {
+      width: 319px;
+      height: 40px;
+      background-color: $color-primary;
+      border-radius: 4px;
+      padding: 8px 136px;
+      border: none;
+      color: $color-base;
+      font-size: $font-size-md;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .sign-up-group {
+      font-size: $font-size-xs;
+      color: $color-form-text-duhanaccount;
+
+      .sign-up-link {
+        color: $color-primary;
+
+        &:hover {
+          cursor: pointer;
         }
       }
-
-      .footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        
-        .submit-button {
-            width: 319px;
-            height: 40px;
-            background-color: $color-primary;
-            border-radius: 4px;
-            padding: 8px 136px;
-            border: none;
-            color: $color-base;
-            font-size: $font-size-md;
-        
-            &:hover {
-              cursor: pointer;
-            }
-          }
-        
-          .sign-up-group {
-            font-size: $font-size-xs;
-            color: $color-form-text-duhanaccount;
-        
-            .sign-up-link {
-              color: $color-primary;
-        
-              &:hover {
-                cursor: pointer;
-              }
-            }
-          }
-      }
+    }
+  }
 }

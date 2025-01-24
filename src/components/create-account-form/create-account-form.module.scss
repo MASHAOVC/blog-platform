@@ -16,6 +16,7 @@
   margin-bottom: 120px;
   box-shadow: $form-shadows;
   font-family: $font-secondary;
+  border: 1px solid $color-border;
 
   .heading {
     font-size: $font-size-xlg;
@@ -23,7 +24,7 @@
     margin: 0;
   }
 
-  .form-group {
+  .fields-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -41,7 +42,7 @@
         padding: 8px 12px;
         box-sizing: border-box;
         font-size: $font-size-md;
-        color: $color-form-text-placeholder;
+        color: $color-text;
         border: 1px solid $color-border;
         border-radius: 4px;
         font-weight: 400;

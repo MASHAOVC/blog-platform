@@ -4,7 +4,7 @@ export const CreateAccountForm = () => {
   return (
     <form className={styles['create-account-form']}>
       <h1 className={styles['heading']}>Create new account</h1>
-      <div className={styles['form-group']}>
+      <div className={styles['fields-group']}>
         <label className={styles['label']}>
           Username
           <input className={styles['input-field']} placeholder="Username" />
