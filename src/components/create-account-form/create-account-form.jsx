@@ -30,12 +30,14 @@ export const CreateAccountForm = () => {
           <span className={styles['check__text']}> I agree to the processing of my personal information</span>
         </label>
       </div>
-      <button className={styles['submit-button']} type="submit">
-        Create
-      </button>
-      <span className={styles['sign-in-group']}>
-        Already have an account? <a className={styles['sign-in-link']}>Sign in</a>
-      </span>
+      <footer className={styles['footer']}>
+        <button className={styles['submit-button']} type="submit">
+          Create
+        </button>
+        <span className={styles['sign-in-group']}>
+          Already have an account? <a className={styles['sign-in-link']}>Sign In</a>
+        </span>
+      </footer>
     </form>
   );
 };

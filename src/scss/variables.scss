@@ -1,6 +1,5 @@
 $font-primary: 'Inter', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
-//@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 $color-primary: #1890ff;
 $color-base: #ffffff;
@@ -13,7 +12,6 @@ $color-text-heading: rgba(0, 0, 0, 0.85);
 $color-form-text-heading: #262626;
 $color-form-text-placeholder: #bfbfbf;
 $color-form-text-duhanaccount: #8c8c8c;
-//$color-form-shadow:
 
 $color-border: #d9d9d9;
 $color-border-secondary: #e8e8e8;
@@ -25,13 +23,13 @@ $color-error: #f5222d;
 $color-success: #52c41a;
 $color-shadow: rgba(0, 0, 0, 0.15);
 
-$form-shadows: 0px 0.61px 2.93px 0px #00000005,
-                     0px 1.46px 7.05px 0px #00000007,
-                     0px 2.75px 13.27px 0px #00000009,
-                     0px 4.91px 23.68px 0px #0000000B,
-                     0px 9.19px 44.28px 0px #0000000D,
-                     0px 22px 106px 0px #00000012;
-
+$form-shadows:
+  0px 0.61px 2.93px 0px #00000005,
+  0px 1.46px 7.05px 0px #00000007,
+  0px 2.75px 13.27px 0px #00000009,
+  0px 4.91px 23.68px 0px #0000000b,
+  0px 9.19px 44.28px 0px #0000000d,
+  0px 22px 106px 0px #00000012;
 
 $font-size-xs: 12px;
 $font-size-sm: 14px;

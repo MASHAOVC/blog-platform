@@ -1,125 +1,133 @@
 @import '../../scss/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 .create-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  justify-self: center;
+  align-items: center;
+  width: 384px;
+  background-color: $color-base;
+  margin-top: 59px;
+  border-radius: 6px;
+  padding: 48px 32px;
+  box-sizing: border-box;
+  margin-bottom: 120px;
+  box-shadow: $form-shadows;
+  font-family: $font-secondary;
+
+  .heading {
+    font-size: $font-size-xlg;
+    color: $color-form-text-heading;
+    margin: 0;
+  }
+
+  .form-group {
     display: flex;
     flex-direction: column;
-    gap: 21px;
-    justify-self: center;
+    gap: 12px;
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: $font-size-sm;
+      color: $color-form-text-heading;
+
+      .input-field {
+        width: 320px;
+        height: 40px;
+        padding: 8px 12px;
+        box-sizing: border-box;
+        font-size: $font-size-md;
+        color: $color-form-text-placeholder;
+        border: 1px solid $color-border;
+        border-radius: 4px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .agreement-group {
+    .line {
+      width: 320px;
+      border: 1px solid $color-border-secondary;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+    }
+
+    .check {
+      font-size: $font-size-sm;
+      color: $color-text-agreement;
+      position: relative;
+      display: inline-block;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &__input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+
+        &:checked + .check__box {
+          background: $color-primary url(src/assets/check.svg) no-repeat center;
+        }
+      }
+
+      &__box {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+        position: absolute;
+        top: 3px;
+        background-color: $color-primary;
+      }
+
+      &__text {
+        display: inline-block;
+        margin-left: 24px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 384px;
-    background-color: $color-base;
-    margin-top: 59px;
-    border-radius: 6px;
-    padding: 48px 32px;
-    box-sizing: border-box;
-    margin-bottom: 120px;
-    box-shadow: $form-shadows;
-
-    .heading {
-        font-size: $font-size-xlg;
-        color: $color-form-text-heading;
-        margin: 0;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-
-        .label {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            font-size: $font-size-sm;
-            color: $color-form-text-heading;
-
-            .input-field {
-                width: 320px;
-                height: 40px;
-                padding: 8px 12px;
-                box-sizing: border-box;
-                font-size: $font-size-md;
-                color: $color-form-text-placeholder;
-                border: 1px solid $color-border;
-                border-radius: 4px;
-                font-weight: 400;
-            }
-        }
-    }
-
-    .agreement-group {
-
-        .line {
-            width: 320px;
-            border: 1px solid $color-border-secondary;
-            box-sizing: border-box;
-            margin-bottom: 8px;
-        }
-
-            .check {
-                font-size: $font-size-sm;
-                color: $color-text-agreement;
-                position: relative;
-                display: inline-block;
-
-                &:hover {
-                    cursor: pointer;
-                }
-
-                &__input {
-                    position: absolute;
-                    width: 1px;
-                    height: 1px;
-                    overflow: hidden;
-                    clip:rect(0 0 0 0);
-
-                    &:checked + .check__box {
-                        background: $color-primary url(src/assets/check.svg) no-repeat center;
-                    }
-                }
-
-                &__box {
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 2px;
-                    position: absolute;
-                    top: 3px;
-                    background-color: $color-primary;
-                }
-
-                &__text {
-                    display: inline-block;
-                    margin-left: 24px;
-                    line-height: 22px;
-                }
-            }
-    }
+    gap: 8px;
 
     .submit-button {
-        width: 319px;
-        height: 40px;
-        background-color: $color-primary;
-        border-radius: 4px;
-        padding: 8px 136px;
-        border: none;
-        color: $color-base;
-        font-size: $font-size-md;
+      width: 319px;
+      height: 40px;
+      background-color: $color-primary;
+      border-radius: 4px;
+      padding: 8px 136px;
+      border: none;
+      color: $color-base;
+      font-size: $font-size-md;
 
-        &:hover {
-            cursor: pointer;
-        }
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .sign-in-group {
-        font-size: $font-size-xs;
-        color: $color-form-text-duhanaccount;
+      font-size: $font-size-xs;
+      color: $color-form-text-duhanaccount;
 
-        .sign-in-link {
-            color: $color-primary;
+      .sign-in-link {
+        color: $color-primary;
 
-            &:hover {
-                cursor: pointer;
-            }
+        &:hover {
+          cursor: pointer;
         }
+      }
     }
+  }
 }

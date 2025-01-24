@@ -5,6 +5,8 @@ import Header from '../header';
 import ArticlesList from '../articles-list';
 import ArticleCard from '../article-card';
 import CreateAccountForm from '../create-account-form';
+import SignInForm from '../sign-in-form';
+import EditProfileForm from '../edit-profile-form';
 
 export const App = () => {
   return (
@@ -26,7 +28,9 @@ export const App = () => {
         <Header />
         {/* <ArticlesList/> */}
         {/* <ArticleCard/> */}
-        <CreateAccountForm />
+        {/* <CreateAccountForm /> */}
+        {/* <SignInForm/> */}
+        {/* <EditProfileForm/> */}
       </div>
     </ConfigProvider>
   );
