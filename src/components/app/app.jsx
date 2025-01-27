@@ -7,7 +7,8 @@ import ArticleCard from '../article-card';
 import CreateAccountForm from '../create-account-form';
 import SignInForm from '../sign-in-form';
 import EditProfileForm from '../edit-profile-form';
-import CreateArticleForm from '../create-article-form';
+import { CreateArticleForm } from '../article-forms/create-article-form';
+import { EditArticleForm } from '../article-forms/edit-article-form';
 
 export const App = () => {
   return (
@@ -28,11 +29,12 @@ export const App = () => {
       <div className={styles['app']}>
         <Header />
         {/* <ArticlesList/> */}
-        {/* <ArticleCard/> */}
+        <ArticleCard />
         {/* <CreateAccountForm /> */}
         {/* <SignInForm/> */}
         {/* <EditProfileForm/> */}
-        <CreateArticleForm />
+        {/* <CreateArticleForm /> */}
+        {/* <EditArticleForm/> */}
       </div>
     </ConfigProvider>
   );

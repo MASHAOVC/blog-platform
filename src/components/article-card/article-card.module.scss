@@ -76,7 +76,15 @@
 
     .user-wrapper {
       display: flex;
-      gap: 12px;
+      gap: 30px;
+      flex-direction: column;
+
+      &__wrapper {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: end;
+      }
 
       .info {
         display: flex;
@@ -96,6 +104,33 @@
       .user-avatar {
         width: 46px;
         height: 46px;
+      }
+
+      .buttons-group {
+        display: flex;
+        gap: 12px;
+
+        &__button {
+          border: none;
+          background: none;
+          font-size: $font-size-sm;
+          font-family: $font-primary;
+          border-radius: 5px;
+        }
+
+        &__button-delete {
+          border: 1px solid $color-error;
+          color: $color-error;
+          width: 78px;
+          height: 31px;
+        }
+
+        &__button-edit {
+          border: 1px solid $color-success;
+          color: $color-success;
+          width: 65px;
+          height: 31px;
+        }
       }
     }
   }

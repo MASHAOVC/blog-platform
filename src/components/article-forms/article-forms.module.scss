@@ -1,0 +1,122 @@
+@import '../../scss/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.create-article-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  gap: 21px;
+  width: 938px;
+  background-color: $color-base;
+  box-sizing: border-box;
+  padding: 48px 32px;
+  border-radius: 6px;
+  margin-top: 34px;
+  font-family: $font-secondary;
+  box-shadow: $form-shadows;
+  border: 1px solid $color-border;
+  margin-bottom: 68px;
+
+  .heading {
+    font-size: $font-size-xlg;
+    color: $color-form-text-heading;
+    margin: 0;
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: $font-size-sm;
+    color: $color-form-text-heading;
+
+    .input-field {
+      width: 874px;
+      height: 40px;
+      padding: 8px 12px;
+      box-sizing: border-box;
+      font-size: $font-size-md;
+      color: $color-text;
+      border: 1px solid $color-border;
+      border-radius: 4px;
+      font-weight: 400;
+    }
+
+    .article-text {
+      height: 168px;
+      resize: none;
+      font-family: $font-secondary;
+    }
+  }
+
+  .tags-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-self: start;
+    
+    &__heading {
+        font-weight: 400;
+        margin: 0;
+        font-size: $font-size-sm;
+        color: $color-form-text-heading;
+    }
+
+    &__input-group-wrapper {
+        display: flex;
+        gap: 17px;
+    }
+
+    &__input-field {
+        width: 300px;
+        height: 40px;
+        border: 1px solid $color-border;
+        border-radius: 4px;
+        padding: 8px 0 8px 12px;
+        box-sizing: border-box;
+        font-size: $font-size-md;
+    }
+
+    &__button {
+        border: none;
+        background: none;
+        font-family: $font-secondary;
+        font-size: $font-size-md;
+        border-radius: 4px;
+
+        &:hover {
+            cursor: pointer;
+          }
+    }
+
+    &__button-delete {
+        width: 118px;
+        border: 1px solid $color-error;
+        color: $color-error;
+    }
+
+    &__button-add {
+        width: 136px;
+        border: 1px solid $color-primary;
+        color:$color-primary;
+        
+    }
+  }
+
+  .submit-button {
+    width: 319px;
+    height: 40px;
+    background-color: $color-primary;
+    border-radius: 4px;
+    padding: 8px 136px;
+    border: none;
+    color: $color-base;
+    font-size: $font-size-md;
+    align-self: start;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

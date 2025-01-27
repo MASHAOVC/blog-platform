@@ -23,15 +23,25 @@ export const ArticleCard = () => {
           </p>
         </div>
         <div className={styles['user-wrapper']}>
-          <div className={styles['info']}>
-            <span className={styles['info__user-name']}>John Doe</span>
-            <span className={styles['info__publication-date']}>March 5, 2020</span>
+          <div className={styles['user-wrapper__wrapper']}>
+            <div className={styles['info']}>
+              <span className={styles['info__user-name']}>John Doe</span>
+              <span className={styles['info__publication-date']}>March 5, 2020</span>
+            </div>
+            <img
+              className={styles['user-avatar']}
+              src="https://production-media-prisoner-of-payload.s3.amazonaws.com/media/imgbin_computer-icons-woman-avatar-png-1.png"
+              alt="User Avatar"
+            />
           </div>
-          <img
-            className={styles['user-avatar']}
-            src="https://production-media-prisoner-of-payload.s3.amazonaws.com/media/imgbin_computer-icons-woman-avatar-png-1.png"
-            alt="User Avatar"
-          />
+          <div className={styles['buttons-group']}>
+            <button className={`${styles['buttons-group__button-delete']} ${styles['buttons-group__button']}`}>
+              Delete
+            </button>
+            <button className={`${styles['buttons-group__button-edit']} ${styles['buttons-group__button']}`}>
+              Edit
+            </button>
+          </div>
         </div>
       </header>
       <main className={styles['main']}>
