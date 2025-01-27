@@ -55,52 +55,51 @@
     flex-direction: column;
     gap: 5px;
     align-self: start;
-    
+
     &__heading {
-        font-weight: 400;
-        margin: 0;
-        font-size: $font-size-sm;
-        color: $color-form-text-heading;
+      font-weight: 400;
+      margin: 0;
+      font-size: $font-size-sm;
+      color: $color-form-text-heading;
     }
 
     &__input-group-wrapper {
-        display: flex;
-        gap: 17px;
+      display: flex;
+      gap: 17px;
     }
 
     &__input-field {
-        width: 300px;
-        height: 40px;
-        border: 1px solid $color-border;
-        border-radius: 4px;
-        padding: 8px 0 8px 12px;
-        box-sizing: border-box;
-        font-size: $font-size-md;
+      width: 300px;
+      height: 40px;
+      border: 1px solid $color-border;
+      border-radius: 4px;
+      padding: 8px 0 8px 12px;
+      box-sizing: border-box;
+      font-size: $font-size-md;
     }
 
     &__button {
-        border: none;
-        background: none;
-        font-family: $font-secondary;
-        font-size: $font-size-md;
-        border-radius: 4px;
+      border: none;
+      background: none;
+      font-family: $font-secondary;
+      font-size: $font-size-md;
+      border-radius: 4px;
 
-        &:hover {
-            cursor: pointer;
-          }
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &__button-delete {
-        width: 118px;
-        border: 1px solid $color-error;
-        color: $color-error;
+      width: 118px;
+      border: 1px solid $color-error;
+      color: $color-error;
     }
 
     &__button-add {
-        width: 136px;
-        border: 1px solid $color-primary;
-        color:$color-primary;
-        
+      width: 136px;
+      border: 1px solid $color-primary;
+      color: $color-primary;
     }
   }
 
