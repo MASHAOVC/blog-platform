@@ -1,6 +1,8 @@
 import styles from './article-card.module.scss';
 import ReactMarkdown from 'react-markdown';
 
+import PopConfirm from '../pop-confirm';
+
 export const ArticleCard = () => {
   return (
     <article className={styles['article-card']}>
@@ -42,6 +44,7 @@ export const ArticleCard = () => {
               Edit
             </button>
           </div>
+          {/* <PopConfirm/> */}
         </div>
       </header>
       <main className={styles['main']}>
