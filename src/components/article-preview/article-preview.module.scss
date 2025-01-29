@@ -22,6 +22,10 @@
       &__title {
         color: $color-primary;
         font-size: $font-size-xlg;
+        line-height: 28px;
+        max-height: 28px;
+        max-width: 620px;
+        overflow: hidden;
       }
 
       &__rating {
@@ -30,6 +34,7 @@
         color: $color-text;
         font-size: $font-size-xs;
         gap: 5px;
+        line-height: 22px;
       }
 
       &__button {
@@ -47,17 +52,24 @@
         align-self: center;
       }
     }
-
-    .tag {
-      width: 38px;
-      height: 20px;
-      color: $color-text-secondary;
-      border: 1px solid $color-text-secondary;
-      border-radius: 2px;
-      font-size: $font-size-xs;
+    .tags-wrapper {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      gap: 8px;
+      max-width: 600px;
+
+      &__tag {
+        min-width: 38px;
+        height: 20px;
+        overflow: hidden;
+        color: $color-text-secondary;
+        border: 1px solid $color-text-secondary;
+        border-radius: 2px;
+        font-size: $font-size-xs;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2px 5px 3px 5px;
+      }
     }
 
     .paragraph {
@@ -66,6 +78,8 @@
       font-size: $font-size-xs;
       line-height: 22px;
       margin: 0;
+      max-height: 45px;
+      overflow: hidden;
     }
   }
 
@@ -80,17 +94,21 @@
       &__user-name {
         font-size: $font-size-lg;
         color: $color-text-heading;
+        line-height: 28px;
       }
 
       &__publication-date {
         font-size: $font-size-xs;
         color: $color-text-secondary;
+        line-height: 22px;
+        align-self: end;
       }
     }
 
     .user-avatar {
       width: 46px;
       height: 46px;
+      border-radius: 50%;
     }
   }
 }

@@ -28,8 +28,8 @@ export const App = () => {
     >
       <div className={styles['app']}>
         <Header />
-        {/* <ArticlesList/> */}
-        <ArticleCard />
+        <ArticlesList />
+        {/* <ArticleCard /> */}
         {/* <CreateAccountForm /> */}
         {/* <SignInForm/> */}
         {/* <EditProfileForm/> */}

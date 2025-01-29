@@ -1,33 +1,45 @@
 import styles from './article-preview.module.scss';
+import { Image } from 'antd';
+import { avatarFallback } from '../../assets/avatar-fallback';
+import { format } from 'date-fns';
 
-export const ArticlePreview = () => {
+export const ArticlePreview = (props) => {
+  const { author, title, description, favoritesCount, tagList, updatedAt } = props;
+
   return (
     <div className={styles['article-preview']}>
       <div className={styles['article-wrapper']}>
         <header className={styles['header']}>
-          <a className={styles['header__title']}>Some article title</a>
+          <a className={styles['header__title']}>{title}</a>
           <span className={styles['header__rating']}>
             <button className={styles['header__button']}>
               <img className={styles['header__heart']} src="src/assets/heart.svg" alt="Like this article" />
             </button>
-            12
+            {favoritesCount}
           </span>
         </header>
-        <span className={styles['tag']}>Tag1</span>
-        <p className={styles['paragraph']}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </p>
+        <div className={styles['tags-wrapper']}>
+          {[...new Set(tagList)]
+            .filter((tag) => tag.trim())
+            .map((tag) => (
+              <span key={tag} className={styles['tags-wrapper__tag']}>
+                {tag}
+              </span>
+            ))}
+        </div>
+        <p className={styles['paragraph']}>{description}</p>
       </div>
       <div className={styles['user-wrapper']}>
         <div className={styles['info']}>
-          <span className={styles['info__user-name']}>John Doe</span>
-          <span className={styles['info__publication-date']}>March 5, 2020</span>
+          <span className={styles['info__user-name']}>{author.username}</span>
+          <span className={styles['info__publication-date']}>{format(new Date(updatedAt), 'MMMM d, yyyy')}</span>
         </div>
-        <img
+        <Image
           className={styles['user-avatar']}
-          src="https://production-media-prisoner-of-payload.s3.amazonaws.com/media/imgbin_computer-icons-woman-avatar-png-1.png"
+          src={author.image}
+          width={46}
+          height={46}
+          fallback={avatarFallback}
           alt="User Avatar"
         />
       </div>
