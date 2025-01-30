@@ -20,3 +20,9 @@ export const getRecentArticlesGlobally = async (page) => {
 
   return result;
 };
+
+export const getAnArticle = async (slug) => {
+  const result = await getResource(`https://blog-platform.kata.academy/api/articles/${slug}`);
+
+  return result;
+};

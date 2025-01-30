@@ -26,6 +26,11 @@
         max-height: 28px;
         max-width: 620px;
         overflow: hidden;
+        text-decoration: none;
+
+        &:hover {
+          cursor: pointer;
+  }
       }
 
       &__rating {
@@ -42,9 +47,9 @@
         border: none;
         padding: 0;
 
-        &:hover {
-          cursor: pointer;
-        }
+        // &:hover {
+        //   cursor: pointer;
+        // }
       }
 
       &__heart {
@@ -58,7 +63,7 @@
       max-width: 600px;
 
       &__tag {
-        min-width: 38px;
+        width: fit-content;
         height: 20px;
         overflow: hidden;
         color: $color-text-secondary;
@@ -69,6 +74,7 @@
         justify-content: center;
         align-items: center;
         padding: 2px 5px 3px 5px;
+        box-sizing: border-box;
       }
     }
 
@@ -106,8 +112,6 @@
     }
 
     .user-avatar {
-      width: 46px;
-      height: 46px;
       border-radius: 50%;
     }
   }

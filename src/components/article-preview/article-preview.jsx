@@ -3,14 +3,18 @@ import { Image } from 'antd';
 import { avatarFallback } from '../../assets/avatar-fallback';
 import { format } from 'date-fns';
 
+import { Link } from 'react-router-dom';
+
 export const ArticlePreview = (props) => {
-  const { author, title, description, favoritesCount, tagList, updatedAt } = props;
+  const { author, title, description, favoritesCount, tagList, createdAt, slug } = props;
 
   return (
     <div className={styles['article-preview']}>
       <div className={styles['article-wrapper']}>
         <header className={styles['header']}>
-          <a className={styles['header__title']}>{title}</a>
+          <Link to={`/articles/${slug}`} className={styles['header__title']}>
+            {title}
+          </Link>
           <span className={styles['header__rating']}>
             <button className={styles['header__button']}>
               <img className={styles['header__heart']} src="src/assets/heart.svg" alt="Like this article" />
@@ -32,7 +36,7 @@ export const ArticlePreview = (props) => {
       <div className={styles['user-wrapper']}>
         <div className={styles['info']}>
           <span className={styles['info__user-name']}>{author.username}</span>
-          <span className={styles['info__publication-date']}>{format(new Date(updatedAt), 'MMMM d, yyyy')}</span>
+          <span className={styles['info__publication-date']}>{format(new Date(createdAt), 'MMMM d, yyyy')}</span>
         </div>
         <Image
           className={styles['user-avatar']}

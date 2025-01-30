@@ -10,6 +10,8 @@ import EditProfileForm from '../edit-profile-form';
 import { CreateArticleForm } from '../article-forms/create-article-form';
 import { EditArticleForm } from '../article-forms/edit-article-form';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 export const App = () => {
   return (
     <ConfigProvider
@@ -26,16 +28,22 @@ export const App = () => {
         },
       }}
     >
-      <div className={styles['app']}>
-        <Header />
-        <ArticlesList />
-        {/* <ArticleCard /> */}
-        {/* <CreateAccountForm /> */}
-        {/* <SignInForm/> */}
-        {/* <EditProfileForm/> */}
-        {/* <CreateArticleForm /> */}
-        {/* <EditArticleForm/> */}
-      </div>
+      <BrowserRouter>
+        <div className={styles['app']}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<ArticlesList />} />
+            <Route path="/articles" element={<ArticlesList />} />
+
+            <Route path="/articles/:slug" element={<ArticleCard />} />
+            <Route path="/sign-up" element={<CreateAccountForm />} />
+            <Route path="/sign-in" element={<SignInForm />} />
+            <Route path="/profile" element={<EditProfileForm />} />
+            <Route path="/new-article" element={<CreateArticleForm />} />
+            <Route path="/articles/:slug/edit" element={<EditArticleForm />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </ConfigProvider>
   );
 };

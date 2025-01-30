@@ -11,11 +11,12 @@
   font-weight: $font-weight-normal;
   color: $color-text-heading;
 
-  .button {
-    background: none;
+  .link {
     opacity: 1;
     transition: opacity 0.3s ease;
-    font-family: inherit;
+    text-decoration: none;
+    align-content: center;
+    text-align: center;
 
     &:hover {
       opacity: 0.5;
@@ -26,19 +27,19 @@
   .heading {
     font-size: inherit;
     font-weight: inherit;
+    color: $color-text-heading;
   }
 
-  .button-groups-wrapper {
+  .links-groups-wrapper {
     display: flex;
     gap: 5px;
   }
 
-  .buttons-not-authorized {
+  .links-not-authorized {
     display: flex;
     gap: 19px;
 
     &__sign-in {
-      border: none;
       color: $color-text-heading;
       font-size: inherit;
     }
@@ -53,7 +54,7 @@
     }
   }
 
-  .buttons-authorized {
+  .links-authorized {
     display: flex;
     gap: 27px;
 
@@ -71,7 +72,6 @@
       display: flex;
       align-items: center;
       gap: 13px;
-      border: none;
       color: $color-text-heading;
       font-size: inherit;
     }
