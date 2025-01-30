@@ -51,13 +51,13 @@
           align-self: center;
         }
       }
-      
+
       .tags-wrapper {
         display: flex;
         gap: 8px;
         max-width: 600px;
         margin-bottom: 16px;
-  
+
         &__tag {
           width: fit-content;
           height: 20px;
@@ -112,7 +112,7 @@
       }
 
       .user-avatar {
-          border-radius: 50%;
+        border-radius: 50%;
       }
 
       .buttons-group {
