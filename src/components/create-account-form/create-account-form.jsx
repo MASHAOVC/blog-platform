@@ -22,7 +22,6 @@ export const CreateAccountForm = () => {
   const onSubmit = (data) => {
     const { repeatPassword, ...filteredData } = data;
     mutation.mutate(filteredData);
-    console.log(filteredData);
   };
 
   return (
