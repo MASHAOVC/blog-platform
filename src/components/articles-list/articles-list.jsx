@@ -8,13 +8,25 @@ import Pagination from '../pagination';
 import ArticlePreview from '../article-preview';
 
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const ArticlesList = () => {
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const page = Number(new URLSearchParams(location.search).get('page'));
+  const setPage = (p) => navigate(`?page=${p}`);
+
+  const invalidPage = !page || page <= 0;
+
+  if (invalidPage) {
+    setPage(1);
+  }
 
   const { data, error, isPending } = useQuery({
-    queryKey: ['articles', 'global', page],
-    queryFn: () => getRecentArticlesGlobally(page),
+    queryKey: ['articles', 'global', invalidPage ? 1 : page],
+    queryFn: () => getRecentArticlesGlobally(invalidPage ? 1 : page),
   });
 
   console.log(data);

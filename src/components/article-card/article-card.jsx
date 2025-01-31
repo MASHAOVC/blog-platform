@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Spin, Alert, Image } from 'antd';
 import { format } from 'date-fns';
 import { avatarFallback } from '../../assets/avatar-fallback';
+import heartIcon from '../../assets/heart.svg';
 
 import PopConfirm from '../pop-confirm';
 
@@ -47,7 +48,7 @@ export const ArticleCard = () => {
             <a className={styles['title-line__title']}>{title}</a>
             <span className={styles['title-line__rating']}>
               <button className={styles['title-line__button']}>
-                <img className={styles['title-line__heart']} src="src/assets/heart.svg" alt="Like this article" />
+                <img className={styles['title-line__heart']} src={heartIcon} alt="Like this article" />
               </button>
               {favoritesCount}
             </span>
@@ -90,7 +91,7 @@ export const ArticleCard = () => {
         </div>
       </header>
       <main className={styles['main']}>
-        <ReactMarkdown></ReactMarkdown>
+        <ReactMarkdown>{body}</ReactMarkdown>
       </main>
     </article>
   );

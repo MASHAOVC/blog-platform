@@ -17,7 +17,7 @@ export const Header = () => {
             Sign Up
           </Link>
         </div>
-        <div className={styles['links-authorized']}>
+        {/* <div className={styles['links-authorized']}>
           <Link to="/new-article" className={`${styles['links-authorized__create-article']} ${styles['link']}`}>
             Create article
           </Link>
@@ -30,7 +30,7 @@ export const Header = () => {
             />
           </Link>
           <Link className={`${styles['links-authorized__log-out']} ${styles['link']}`}>Log Out</Link>
-        </div>
+        </div> */}
       </div>
     </header>
   );
