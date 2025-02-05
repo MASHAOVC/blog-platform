@@ -9,9 +9,12 @@ import { setToken } from '../../state/actions';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
+import { useNavigate } from 'react-router-dom';
+
 export const CreateAccountForm = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (formData) => postToSignUp(formData),
@@ -25,6 +28,8 @@ export const CreateAccountForm = () => {
       localStorage.setItem('authToken', data.user.token);
 
       dispatch(setToken(data.user.token));
+
+      navigate('/');
     },
     onError: (error) => {
       console.error('Error creating account:', error);
