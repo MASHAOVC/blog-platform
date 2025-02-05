@@ -3,16 +3,21 @@ import styles from './create-account-form.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import { postToSignUp } from '../../services/blog-service';
 
+import { useDispatch } from 'react-redux';
+import { setAuthorisationStatus } from '../../state/actions';
+
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 export const CreateAccountForm = () => {
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const mutation = useMutation({
     mutationFn: (formData) => postToSignUp(formData),
     onSuccess: (data) => {
       console.log('Account created successfully!', data);
+      dispatch(setAuthorisationStatus(true));
     },
     onError: (error) => {
       console.error('Error creating account:', error);

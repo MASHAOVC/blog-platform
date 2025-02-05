@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { reducer } from './reducers/reducer';
+import { userReducer } from './reducers/userReducer';
 
 const mainReducer = combineReducers({
-  state: reducer,
-}); //в последствии изменить название ключа и мб название редьюсера
+  user: userReducer,
+});
 
 export const store = configureStore({
   reducer: mainReducer,
