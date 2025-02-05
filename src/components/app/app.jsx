@@ -11,8 +11,22 @@ import { CreateArticleForm } from '../article-forms/create-article-form';
 import { EditArticleForm } from '../article-forms/edit-article-form';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setToken } from '../../state/actions';
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      dispatch(setToken(token));
+    }
+  }, [dispatch]);
+
   return (
     <ConfigProvider
       theme={{

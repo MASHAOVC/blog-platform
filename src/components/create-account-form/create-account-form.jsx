@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postToSignUp } from '../../services/blog-service';
 
 import { useDispatch } from 'react-redux';
-import { setAuthorisationStatus } from '../../state/actions';
+import { setToken } from '../../state/actions';
 
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,14 @@ export const CreateAccountForm = () => {
     mutationFn: (formData) => postToSignUp(formData),
     onSuccess: (data) => {
       console.log('Account created successfully!', data);
-      dispatch(setAuthorisationStatus(true));
+
+      if (!data?.user.token) {
+        throw new Error('No token recieved');
+      }
+
+      localStorage.setItem('authToken', data.user.token);
+
+      dispatch(setToken(data.user.token));
     },
     onError: (error) => {
       console.error('Error creating account:', error);

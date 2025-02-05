@@ -7,7 +7,7 @@ import { getRecentArticlesGlobally } from '../../services/blog-service';
 import Pagination from '../pagination';
 import ArticlePreview from '../article-preview';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const ArticlesList = () => {
@@ -20,16 +20,16 @@ export const ArticlesList = () => {
 
   const invalidPage = !page || page <= 0;
 
-  if (invalidPage) {
-    setPage(1);
-  }
+  useEffect(() => {
+    if (invalidPage) {
+      setPage(1);
+    }
+  }, [invalidPage, setPage]);
 
   const { data, error, isPending } = useQuery({
     queryKey: ['articles', 'global', invalidPage ? 1 : page],
     queryFn: () => getRecentArticlesGlobally(invalidPage ? 1 : page),
   });
-
-  console.log(data);
 
   if (isPending) {
     return (

@@ -1,13 +1,16 @@
 const initialState = {
   user: {
-    authorised: false,
+    token: null,
   },
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_AUTHORISATION_STATUS':
-      return { ...state, user: { ...state.user, authorised: action.payload } };
+    case 'SET_TOKEN':
+      return { ...state, user: { ...state.user, token: action.payload } };
+
+    case 'LOG_OUT':
+      return { ...state, user: { ...state.user, token: null } };
 
     default:
       return state;

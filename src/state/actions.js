@@ -1,1 +1,3 @@
-export const setAuthorisationStatus = (status) => ({ type: 'SET_AUTHORISATION_STATUS', payload: status });
+export const setToken = (token) => ({ type: 'SET_TOKEN', payload: token });
+
+export const logOut = () => ({ type: 'LOG_OUT' });

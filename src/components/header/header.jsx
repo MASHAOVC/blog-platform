@@ -1,12 +1,22 @@
 import styles from './header.module.scss';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from '../../state/actions';
 
 export const Header = () => {
-  const isAuthorised = useSelector((state) => state.user.user.authorised);
-  console.log(isAuthorised);
+  const isAuthorised = useSelector((state) => Boolean(state.user.user.token));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    localStorage.removeItem('authToken');
+    dispatch(logOut());
+    setTimeout(() => {
+      navigate('/');
+    }, 0); // Пытаемся дать время на обновление состояния
+  };
 
   return (
     <header className={styles['header']}>
@@ -27,7 +37,9 @@ export const Header = () => {
                 alt="User Avatar"
               />
             </Link>
-            <Link className={`${styles['links-authorized__log-out']} ${styles['link']}`}>Log Out</Link>
+            <Link className={`${styles['links-authorized__log-out']} ${styles['link']}`} onClick={handleLogOut}>
+              Log Out
+            </Link>
           </div>
         ) : (
           <div className={styles['links-not-authorized']}>
