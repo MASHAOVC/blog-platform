@@ -36,6 +36,11 @@
       font-size: $font-size-sm;
       color: $color-form-text-heading;
 
+      p {
+        margin: 0;
+        color: $color-error;
+      }
+
       .input-field {
         width: 320px;
         height: 40px;
@@ -46,6 +51,10 @@
         border: 1px solid $color-border;
         border-radius: 4px;
         font-weight: 400;
+
+        &--error {
+          border: 1px solid $color-error;
+        }
       }
     }
   }
@@ -86,13 +95,20 @@
         border-radius: 2px;
         position: absolute;
         top: 3px;
-        background-color: $color-primary;
+        background-color: $color-base;
+        border: 2px solid $color-primary;
+        box-sizing: border-box;
       }
 
       &__text {
         display: inline-block;
         margin-left: 24px;
         line-height: 22px;
+      }
+
+      &__input--error + .check__box {
+        border: 2px solid $color-error;
+        background-color: $color-base;
       }
     }
   }
