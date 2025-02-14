@@ -1,5 +1,8 @@
 import styles from './sign-in-form.module.scss';
 
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
 export const SignInForm = () => {
   return (
     <form className={styles['sign-in-form']}>
@@ -19,7 +22,10 @@ export const SignInForm = () => {
           Login
         </button>
         <span className={styles['sign-up-group']}>
-          Don&apos;t have an account? <a className={styles['sign-up-link']}>Sign Up</a>
+          Don&apos;t have an account?{' '}
+          <Link to="/sign-up" className={styles['sign-up-link']}>
+            Sign Up
+          </Link>
         </span>
       </footer>
     </form>

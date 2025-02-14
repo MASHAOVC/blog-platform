@@ -5,15 +5,15 @@ import { postToSignUp } from '../../services/blog-service';
 
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../state/actions';
+import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
-
 export const CreateAccountForm = () => {
+  const [errorData, setErrorData] = useState(null);
   const {
+    setError,
     register,
     handleSubmit,
     watch,
@@ -39,10 +39,31 @@ export const CreateAccountForm = () => {
       navigate('/');
     },
     onError: (error) => {
-      console.error('Error creating account:', error);
+      try {
+        const errorData = JSON.parse(error.message);
+        setErrorData(errorData);
+
+        if (errorData?.body?.errors?.username) {
+          setError('username', {
+            type: 'manual', // Указываем, что ошибка устанавливается вручную
+            message: 'Username is already taken',
+          });
+        }
+
+        if (errorData?.body?.errors?.email) {
+          setError('email', {
+            type: 'manual',
+            message: 'Email is already taken',
+          });
+        }
+
+        console.error('Status:', errorData.status);
+        console.error('Server errors:', errorData.body.errors);
+      } catch (error) {
+        console.error('Unexpected error format:', error);
+      }
     },
   });
-
   const onSubmit = (data) => {
     const { repeatPassword, ...filteredData } = data;
     mutation.mutate(filteredData);

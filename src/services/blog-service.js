@@ -26,12 +26,13 @@ const postResource = async (url, body) => {
   };
 
   const response = await fetch(url, options);
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Could not fetch ${url}, recieved ${response.status}`);
+    throw new Error(JSON.stringify({ status: response.status, body: data }));
   }
 
-  return await response.json();
+  return data;
 };
 
 export const getRecentArticlesGlobally = async (page) => {
@@ -48,6 +49,12 @@ export const getAnArticle = async (slug) => {
 
 export const postToSignUp = async (formData) => {
   const result = await postResource(`https://blog-platform.kata.academy/api/users`, { user: formData });
+
+  return result;
+};
+
+export const postToSignIn = async (formData) => {
+  const result = await postResource(`https://blog-platform.kata.academy/api/users/login`, { user: formData });
 
   return result;
 };
