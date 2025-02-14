@@ -14,7 +14,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setToken } from '../../state/actions';
+import { setToken, setUserData } from '../../state/actions';
+
+import { getCurrentUser } from '../../services/blog-service';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,10 @@ export const App = () => {
 
     if (token) {
       dispatch(setToken(token));
+
+      getCurrentUser()
+        .then((data) => dispatch(setUserData(data.user)))
+        .catch((err) => console.error(err));
     }
   }, [dispatch]);
 

@@ -1,15 +1,22 @@
 const getResource = async (url) => {
+  const authToken = localStorage.getItem('authToken');
+
+  if (!authToken) {
+    throw new Error('Authorization token is missing');
+  }
+
   const options = {
     method: 'GET',
     headers: {
-      accept: 'application/json',
+      Accept: 'application/json',
+      Authorization: `Token ${authToken}`,
     },
   };
 
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new Error(`Could not fetch ${url}, recieved ${response.status}`);
+    throw new Error(`Could not fetch ${url}, received ${response.status}`);
   }
 
   return await response.json();
@@ -43,6 +50,12 @@ export const getRecentArticlesGlobally = async (page) => {
 
 export const getAnArticle = async (slug) => {
   const result = await getResource(`https://blog-platform.kata.academy/api/articles/${slug}`);
+
+  return result;
+};
+
+export const getCurrentUser = async () => {
+  const result = await getResource(`https://blog-platform.kata.academy/api/user`);
 
   return result;
 };

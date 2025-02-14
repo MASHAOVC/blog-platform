@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postToSignUp } from '../../services/blog-service';
 
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../state/actions';
+import { setToken, setUserData } from '../../state/actions';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -32,6 +32,7 @@ export const CreateAccountForm = () => {
 
       localStorage.setItem('authToken', data.user.token);
       dispatch(setToken(data.user.token));
+      dispatch(setUserData(data.user));
       navigate('/');
     },
     onError: (error) => {

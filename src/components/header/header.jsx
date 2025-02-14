@@ -1,4 +1,5 @@
 import styles from './header.module.scss';
+import { avatarFallback } from '../../assets/avatar-fallback';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,6 +8,8 @@ import { logOut } from '../../state/actions';
 
 export const Header = () => {
   const isAuthorised = useSelector((state) => Boolean(state.user.user.token));
+  const username = useSelector((state) => state.user.user.username);
+  const userAvatar = useSelector((state) => state.user.user.image);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,10 +33,10 @@ export const Header = () => {
               Create article
             </Link>
             <Link to="/profile" className={`${styles['links-authorized__user']} ${styles['link']}`}>
-              John Doe
+              {username}
               <img
                 className={styles['links-authorized__avatar']}
-                src="https://production-media-prisoner-of-payload.s3.amazonaws.com/media/imgbin_computer-icons-woman-avatar-png-1.png"
+                src={userAvatar || avatarFallback}
                 alt="User Avatar"
               />
             </Link>

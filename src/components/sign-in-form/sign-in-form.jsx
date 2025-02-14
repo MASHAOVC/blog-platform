@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postToSignIn } from '../../services/blog-service';
 
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../state/actions';
+import { setToken, setUserData } from '../../state/actions';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -30,6 +30,7 @@ export const SignInForm = () => {
 
       localStorage.setItem('authToken', data.user.token);
       dispatch(setToken(data.user.token));
+      dispatch(setUserData(data.user));
       navigate('/');
     },
     onError: (error) => {
@@ -63,13 +64,13 @@ export const SignInForm = () => {
           Email address
           <input
             {...register('email', {
-              required: true,
+              required: 'Email is required',
               pattern: {
                 value: /^[\w.%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
                 message: 'Incorrect email',
               },
             })}
-            className={`${styles['input-field']} ${errors.password ? styles['input-field--error'] : ''}`}
+            className={`${styles['input-field']} ${errors.email ? styles['input-field--error'] : ''}`}
             type="email"
             placeholder="Email address"
           />
