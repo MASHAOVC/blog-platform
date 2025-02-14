@@ -5,13 +5,11 @@ import { postToSignUp } from '../../services/blog-service';
 
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../state/actions';
-import { useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 export const CreateAccountForm = () => {
-  const [errorData, setErrorData] = useState(null);
   const {
     setError,
     register,
@@ -33,15 +31,12 @@ export const CreateAccountForm = () => {
       }
 
       localStorage.setItem('authToken', data.user.token);
-
       dispatch(setToken(data.user.token));
-
       navigate('/');
     },
     onError: (error) => {
       try {
         const errorData = JSON.parse(error.message);
-        setErrorData(errorData);
 
         if (errorData?.body?.errors?.username) {
           setError('username', {
@@ -64,6 +59,7 @@ export const CreateAccountForm = () => {
       }
     },
   });
+
   const onSubmit = (data) => {
     const { repeatPassword, ...filteredData } = data;
     mutation.mutate(filteredData);

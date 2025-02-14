@@ -1,22 +1,94 @@
 import styles from './sign-in-form.module.scss';
 
+import { useMutation } from '@tanstack/react-query';
+import { postToSignIn } from '../../services/blog-service';
+
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../state/actions';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 export const SignInForm = () => {
+  const {
+    setError,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: (formData) => postToSignIn(formData),
+    onSuccess: (data) => {
+      console.log('You logged in successfully!', data);
+
+      if (!data?.user.token) {
+        throw new Error('No token recieved');
+      }
+
+      localStorage.setItem('authToken', data.user.token);
+      dispatch(setToken(data.user.token));
+      navigate('/');
+    },
+    onError: (error) => {
+      try {
+        const errorData = JSON.parse(error.message);
+
+        if (errorData?.body?.errors) {
+          setError('invalidAuth', {
+            type: 'manual', // Указываем, что ошибка устанавливается вручную
+            message: 'Email or password is invalid',
+          });
+        }
+
+        console.error('Status:', errorData.status);
+        console.error('Server errors:', errorData.body.errors);
+      } catch (error) {
+        console.error('Unexpected error format:', error);
+      }
+    },
+  });
+
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
+
   return (
-    <form className={styles['sign-in-form']}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles['sign-in-form']}>
       <h1 className={styles['heading']}>Sign in</h1>
       <div className={styles['fields-group']}>
         <label className={styles['label']}>
           Email address
-          <input className={styles['input-field']} type="email" placeholder="Email address" />
+          <input
+            {...register('email', {
+              required: true,
+              pattern: {
+                value: /^[\w.%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                message: 'Incorrect email',
+              },
+            })}
+            className={`${styles['input-field']} ${errors.password ? styles['input-field--error'] : ''}`}
+            type="email"
+            placeholder="Email address"
+          />
+          {errors.email && <p>{errors.email.message}</p>}
         </label>
         <label className={styles['label']}>
           Password
-          <input className={styles['input-field']} type="password" placeholder="Password" />
+          <input
+            {...register('password', {
+              required: 'Password is required',
+            })}
+            className={`${styles['input-field']} ${errors.password ? styles['input-field--error'] : ''}`}
+            type="password"
+            placeholder="Password"
+          />
+          {errors.password && <p>{errors.password.message}</p>}
         </label>
       </div>
+      {errors.invalidAuth && <p> {errors.invalidAuth.message}</p>}
       <footer className={styles['footer']}>
         <button className={styles['submit-button']} type="submit">
           Login

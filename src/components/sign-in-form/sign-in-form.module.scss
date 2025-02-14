@@ -45,8 +45,22 @@
         border: 1px solid $color-border;
         border-radius: 4px;
         font-weight: 400;
+
+        &--error {
+          border: 1px solid $color-error;
+        }
+      }
+
+      p {
+        color: $color-error;
+        margin: 0;
       }
     }
+  }
+
+  p {
+    margin: 0;
+    color: $color-error;
   }
 
   .footer {
