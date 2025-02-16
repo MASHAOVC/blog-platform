@@ -42,6 +42,33 @@ const postResource = async (url, body) => {
   return data;
 };
 
+const putResource = async (url, body) => {
+  const authToken = localStorage.getItem('authToken');
+
+  if (!authToken) {
+    throw new Error('Authorization token is missing');
+  }
+
+  const options = {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Token ${authToken}`,
+    },
+    body: JSON.stringify(body),
+  };
+
+  const response = await fetch(url, options);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify({ status: response.status, body: data }));
+  }
+
+  return data;
+};
+
 export const getRecentArticlesGlobally = async (page) => {
   const result = await getResource(`https://blog-platform.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
 
@@ -68,6 +95,12 @@ export const postToSignUp = async (formData) => {
 
 export const postToSignIn = async (formData) => {
   const result = await postResource(`https://blog-platform.kata.academy/api/users/login`, { user: formData });
+
+  return result;
+};
+
+export const putToUpdateCurrentUser = async (formData) => {
+  const result = await putResource(`https://blog-platform.kata.academy/api/user`, formData);
 
   return result;
 };
