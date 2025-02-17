@@ -36,8 +36,12 @@ export const Header = () => {
               {username}
               <img
                 className={styles['links-authorized__avatar']}
-                src={userAvatar || avatarFallback}
+                src={userAvatar}
                 alt="User Avatar"
+                onError={(e) => {
+                  e.currentTarget.onerror = null; // Чтобы избежать зацикливания
+                  e.currentTarget.src = avatarFallback;
+                }}
               />
             </Link>
             <Link className={`${styles['links-authorized__log-out']} ${styles['link']}`} onClick={handleLogOut}>

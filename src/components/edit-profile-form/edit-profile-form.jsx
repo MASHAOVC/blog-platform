@@ -2,14 +2,14 @@ import styles from './edit-profile-form.module.scss';
 
 import { useEffect } from 'react';
 
-import { Mutation, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { putToUpdateCurrentUser } from '../../services/blog-service';
 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserData } from '../../state/actions';
+import { setUserData, setToken } from '../../state/actions';
 
 export const EditProfileForm = () => {
   const dispatch = useDispatch();
@@ -35,15 +35,14 @@ export const EditProfileForm = () => {
   }, [currentUsername, currentUserEmail, reset]); // Перезапускаем эффект, если данные изменятся
 
   const mutation = useMutation({
-    mutationFn: (formData) => {
-      console.log('Sending data to server:', formData);
-      putToUpdateCurrentUser(formData);
-    },
+    mutationFn: (formData) => putToUpdateCurrentUser(formData),
     onSuccess: (data) => {
       console.log('You updated your profile successfully!', data);
 
-      // dispatch(setUserData(data.user.username));
-      // navigate('/');
+      localStorage.setItem('authToken', data.user.token);
+      dispatch(setToken(data.user.token));
+      dispatch(setUserData(data.user));
+      navigate('/');
     },
     onError: (error) => {
       console.error('Error updating profile:', error);
@@ -52,7 +51,6 @@ export const EditProfileForm = () => {
 
   const onSubmit = (data) => {
     const { newPassword, ...filteredData } = data;
-    console.log(filteredData);
     mutation.mutate(filteredData);
   };
 
@@ -109,8 +107,8 @@ export const EditProfileForm = () => {
           <input
             {...register('image', {
               pattern: {
-                value: /^(ftp|http|https):\/\/[^ "]+$/,
-                message: 'Please enter a valid URL starting with http://, https://, or ftp://',
+                value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/i,
+                message: 'Please enter a valid URL of image',
               },
             })}
             className={`${styles['input-field']} ${errors.image ? styles['input-field--error'] : ''}`}

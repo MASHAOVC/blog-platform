@@ -79,6 +79,8 @@
     &__avatar {
       width: 46px;
       height: 46px;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     &__log-out {

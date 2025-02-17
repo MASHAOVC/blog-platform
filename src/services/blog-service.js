@@ -100,7 +100,7 @@ export const postToSignIn = async (formData) => {
 };
 
 export const putToUpdateCurrentUser = async (formData) => {
-  const result = await putResource(`https://blog-platform.kata.academy/api/user`, formData);
+  const result = await putResource(`https://blog-platform.kata.academy/api/user`, { user: formData });
 
   return result;
 };
