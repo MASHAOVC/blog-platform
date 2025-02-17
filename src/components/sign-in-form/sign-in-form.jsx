@@ -1,5 +1,7 @@
 import styles from './sign-in-form.module.scss';
 
+import { useEffect } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
 import { postToSignIn } from '../../services/blog-service';
 
@@ -12,8 +14,10 @@ import { useForm } from 'react-hook-form';
 export const SignInForm = () => {
   const {
     setError,
+    clearErrors,
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
@@ -55,6 +59,14 @@ export const SignInForm = () => {
   const onSubmit = (data) => {
     mutation.mutate(data);
   };
+
+  const email = watch('email');
+  const password = watch('password');
+  useEffect(() => {
+    if (errors.invalidAuth) {
+      clearErrors('invalidAuth');
+    }
+  }, [email, password, clearErrors]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles['sign-in-form']}>

@@ -49,6 +49,10 @@
         &--error {
           border-color: $color-error;
         }
+
+        &::placeholder {
+          color: $color-form-text-placeholder;
+        }
       }
 
       .filled {

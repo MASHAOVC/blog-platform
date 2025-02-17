@@ -15,6 +15,7 @@ export const EditProfileForm = () => {
   const dispatch = useDispatch();
   const currentUsername = useSelector((state) => state.user.user.username);
   const currentUserEmail = useSelector((state) => state.user.user.email);
+  const currentUserAvatar = useSelector((state) => state.user.user.image);
   const navigate = useNavigate();
   const {
     register,
@@ -30,9 +31,10 @@ export const EditProfileForm = () => {
       reset({
         username: currentUsername,
         email: currentUserEmail,
+        image: currentUserAvatar,
       });
     }
-  }, [currentUsername, currentUserEmail, reset]); // Перезапускаем эффект, если данные изменятся
+  }, [currentUsername, currentUserEmail, currentUserAvatar, reset]); // Перезапускаем эффект, если данные изменятся
 
   const mutation = useMutation({
     mutationFn: (formData) => putToUpdateCurrentUser(formData),
@@ -45,13 +47,33 @@ export const EditProfileForm = () => {
       navigate('/');
     },
     onError: (error) => {
-      console.error('Error updating profile:', error);
+      try {
+        const errorData = JSON.parse(error.message);
+
+        if (errorData?.body?.errors?.username) {
+          setError('username', {
+            type: 'manual', // Указываем, что ошибка устанавливается вручную
+            message: 'Username is already taken',
+          });
+        }
+
+        if (errorData?.body?.errors?.email) {
+          setError('email', {
+            type: 'manual',
+            message: 'Email is already taken',
+          });
+        }
+
+        console.error('Status:', errorData.status);
+        console.error('Server errors:', errorData.body.errors);
+      } catch (error) {
+        console.error('Unexpected error format:', error);
+      }
     },
   });
 
   const onSubmit = (data) => {
-    const { newPassword, ...filteredData } = data;
-    mutation.mutate(filteredData);
+    mutation.mutate(data);
   };
 
   return (
@@ -86,7 +108,7 @@ export const EditProfileForm = () => {
         <label className={styles['label']}>
           New password
           <input
-            {...register('newPassword', {
+            {...register('password', {
               minLength: {
                 value: 6,
                 message: 'Your password must contain at least 6 characters',
@@ -96,11 +118,11 @@ export const EditProfileForm = () => {
                 message: 'Your password cannot be longer than 40 characters',
               },
             })}
-            className={`${styles['input-field']} ${errors.newPassword ? styles['input-field--error'] : ''}`}
+            className={`${styles['input-field']} ${errors.password ? styles['input-field--error'] : ''}`}
             type="password"
             placeholder="New password"
           />
-          {errors.newPassword && <p>{errors.newPassword.message}</p>}
+          {errors.password && <p>{errors.password.message}</p>}
         </label>
         <label className={styles['label']}>
           Avatar image (url)

@@ -36,7 +36,7 @@ export const Header = () => {
               {username}
               <img
                 className={styles['links-authorized__avatar']}
-                src={userAvatar}
+                src={userAvatar || avatarFallback}
                 alt="User Avatar"
                 onError={(e) => {
                   e.currentTarget.onerror = null; // Чтобы избежать зацикливания

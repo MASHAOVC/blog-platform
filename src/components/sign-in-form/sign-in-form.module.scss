@@ -49,6 +49,10 @@
         &--error {
           border: 1px solid $color-error;
         }
+        
+        &::placeholder {
+          color: $color-form-text-placeholder;
+        }
       }
 
       p {
