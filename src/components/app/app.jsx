@@ -10,9 +10,11 @@ import EditProfileForm from '../edit-profile-form';
 import { CreateArticleForm } from '../article-forms/create-article-form';
 import { EditArticleForm } from '../article-forms/edit-article-form';
 
+// import { RequireAuth } from '../../hoc/requireAuth';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { setToken, setUserData } from '../../state/actions';
 

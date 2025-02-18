@@ -41,6 +41,11 @@
       border: 1px solid $color-border;
       border-radius: 4px;
       font-weight: 400;
+
+      
+      &::placeholder {
+        color: $color-form-text-placeholder;
+      }
     }
 
     .article-text {
