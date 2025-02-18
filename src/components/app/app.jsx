@@ -1,20 +1,34 @@
 import styles from './app.module.scss';
-import { ConfigProvider } from 'antd';
-
-import Header from '../header';
-import ArticlesList from '../articles-list';
-import ArticleCard from '../article-card';
-import CreateAccountForm from '../create-account-form';
-import SignInForm from '../sign-in-form';
-import EditProfileForm from '../edit-profile-form';
-import { CreateArticleForm } from '../article-forms/create-article-form';
-import { EditArticleForm } from '../article-forms/edit-article-form';
-
-import { RequireAuth } from '../../hoc/requireAuth';
+import { ConfigProvider, Spin } from 'antd';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
+
+// import Header from '../header';
+// import ArticlesList from '../articles-list';
+// import ArticleCard from '../article-card';
+// import CreateAccountForm from '../create-account-form';
+// import SignInForm from '../sign-in-form';
+// import EditProfileForm from '../edit-profile-form';
+// import { CreateArticleForm } from '../article-forms/create-article-form';
+// import { EditArticleForm } from '../article-forms/edit-article-form';
+// import { RequireAuth } from '../../hoc/requireAuth';
+
+// Ленивый импорт компонентов
+const Header = lazy(() => import('../header'));
+const ArticlesList = lazy(() => import('../articles-list'));
+const ArticleCard = lazy(() => import('../article-card'));
+const CreateAccountForm = lazy(() => import('../create-account-form'));
+const SignInForm = lazy(() => import('../sign-in-form'));
+const EditProfileForm = lazy(() => import('../edit-profile-form'));
+const CreateArticleForm = lazy(() =>
+  import('../article-forms/create-article-form').then((module) => ({ default: module.CreateArticleForm }))
+);
+const EditArticleForm = lazy(() =>
+  import('../article-forms/edit-article-form').then((module) => ({ default: module.EditArticleForm }))
+);
+const RequireAuth = lazy(() => import('../../hoc/requireAuth').then((module) => ({ default: module.RequireAuth })));
 
 import { setToken, setUserData } from '../../state/actions';
 
@@ -52,25 +66,27 @@ export const App = () => {
     >
       <BrowserRouter>
         <div className={styles['app']}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<ArticlesList />} />
-            <Route path="/articles" element={<ArticlesList />} />
+          <Suspense fallback={<Spin size="large" />}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<ArticlesList />} />
+              <Route path="/articles" element={<ArticlesList />} />
 
-            <Route path="/articles/:slug" element={<ArticleCard />} />
-            <Route path="/sign-up" element={<CreateAccountForm />} />
-            <Route path="/sign-in" element={<SignInForm />} />
-            <Route path="/profile" element={<EditProfileForm />} />
-            <Route
-              path="/new-article"
-              element={
-                <RequireAuth>
-                  <CreateArticleForm />
-                </RequireAuth>
-              }
-            />
-            <Route path="/articles/:slug/edit" element={<EditArticleForm />} />
-          </Routes>
+              <Route path="/articles/:slug" element={<ArticleCard />} />
+              <Route path="/sign-up" element={<CreateAccountForm />} />
+              <Route path="/sign-in" element={<SignInForm />} />
+              <Route path="/profile" element={<EditProfileForm />} />
+              <Route
+                path="/new-article"
+                element={
+                  <RequireAuth>
+                    <CreateArticleForm />
+                  </RequireAuth>
+                }
+              />
+              <Route path="/articles/:slug/edit" element={<EditArticleForm />} />
+            </Routes>
+          </Suspense>
         </div>
       </BrowserRouter>
     </ConfigProvider>
