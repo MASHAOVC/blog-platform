@@ -40,6 +40,7 @@ export const ArticlesList = () => {
   }
 
   if (error) {
+    console.log(error);
     return (
       <ul className={styles['articles-list']}>
         <Alert message="Something's gone terribly wrong!" type="error" style={{ fontFamily: "'Inter', sans-serif" }} />

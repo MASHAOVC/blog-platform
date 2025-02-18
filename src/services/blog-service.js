@@ -1,10 +1,6 @@
 const getResource = async (url) => {
   const authToken = localStorage.getItem('authToken');
 
-  if (!authToken) {
-    throw new Error('Authorization token is missing');
-  }
-
   const options = {
     method: 'GET',
     headers: {

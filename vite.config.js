@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/blog-platform/', // Указываем base для корректных путей
+  // base: '/blog-platform/', // Указываем base для корректных путей
 });

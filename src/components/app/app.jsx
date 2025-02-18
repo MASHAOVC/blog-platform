@@ -10,7 +10,7 @@ import EditProfileForm from '../edit-profile-form';
 import { CreateArticleForm } from '../article-forms/create-article-form';
 import { EditArticleForm } from '../article-forms/edit-article-form';
 
-// import { RequireAuth } from '../../hoc/requireAuth';
+import { RequireAuth } from '../../hoc/requireAuth';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -61,7 +61,14 @@ export const App = () => {
             <Route path="/sign-up" element={<CreateAccountForm />} />
             <Route path="/sign-in" element={<SignInForm />} />
             <Route path="/profile" element={<EditProfileForm />} />
-            <Route path="/new-article" element={<CreateArticleForm />} />
+            <Route
+              path="/new-article"
+              element={
+                <RequireAuth>
+                  <CreateArticleForm />
+                </RequireAuth>
+              }
+            />
             <Route path="/articles/:slug/edit" element={<EditArticleForm />} />
           </Routes>
         </div>
