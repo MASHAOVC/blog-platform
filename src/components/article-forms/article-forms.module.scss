@@ -45,12 +45,21 @@
       &::placeholder {
         color: $color-form-text-placeholder;
       }
+
+      &--error {
+        border-color: $color-error;
+      }
     }
 
     .article-text {
       height: 168px;
       resize: none;
       font-family: $font-secondary;
+    }
+
+    p {
+      color: $color-error;
+      margin: 0;
     }
   }
 
@@ -80,6 +89,10 @@
       padding: 8px 0 8px 12px;
       box-sizing: border-box;
       font-size: $font-size-md;
+
+      &::placeholder {
+        color: $color-form-text-placeholder;
+      }
     }
 
     &__button {
@@ -98,12 +111,21 @@
       width: 118px;
       border: 1px solid $color-error;
       color: $color-error;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
 
     &__button-add {
       width: 136px;
+      height: 40px;
       border: 1px solid $color-primary;
       color: $color-primary;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
 
@@ -120,6 +142,7 @@
 
     &:hover {
       cursor: pointer;
+      opacity: 0.7;
     }
   }
 }

@@ -18,12 +18,15 @@ const getResource = async (url) => {
   return await response.json();
 };
 
-const postResource = async (url, body) => {
+const postResource = async (url, body, withAuth) => {
+  const authToken = localStorage.getItem('authToken');
+
   const options = {
     method: 'POST',
     headers: {
       accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: withAuth ? `Token ${authToken}` : '',
     },
     body: JSON.stringify(body),
   };
@@ -72,7 +75,9 @@ export const getRecentArticlesGlobally = async (page) => {
 };
 
 export const getAnArticle = async (slug) => {
-  const result = await getResource(`https://blog-platform.kata.academy/api/articles/${slug}`);
+  const safeSlug = encodeURIComponent(slug);
+
+  const result = await getResource(`https://blog-platform.kata.academy/api/articles/${safeSlug}`);
 
   return result;
 };
@@ -97,6 +102,12 @@ export const postToSignIn = async (formData) => {
 
 export const putToUpdateCurrentUser = async (formData) => {
   const result = await putResource(`https://blog-platform.kata.academy/api/user`, { user: formData });
+
+  return result;
+};
+
+export const postToCreateAnArticle = async (formData) => {
+  const result = await postResource(`https://blog-platform.kata.academy/api/articles`, { article: formData }, true);
 
   return result;
 };

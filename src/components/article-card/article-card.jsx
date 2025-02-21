@@ -16,11 +16,9 @@ export const ArticleCard = () => {
   const { slug } = useParams();
 
   const { data, error, isPending } = useQuery({
-    queryKey: ['article', 'global'],
+    queryKey: ['article', slug],
     queryFn: () => getAnArticle(slug),
   });
-
-  console.log(data);
 
   if (isPending) {
     return (

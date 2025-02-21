@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 
 export const ArticlePreview = (props) => {
   const { author, title, description, favoritesCount, tagList, createdAt, slug } = props;
+  const safeSlug = encodeURIComponent(slug);
 
   return (
     <div className={styles['article-preview']}>
       <div className={styles['article-wrapper']}>
         <header className={styles['header']}>
-          <Link to={`/articles/${slug}`} className={styles['header__title']}>
+          <Link to={`/articles/${safeSlug}`} className={styles['header__title']}>
             {title}
           </Link>
           <span className={styles['header__rating']}>
