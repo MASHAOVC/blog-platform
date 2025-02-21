@@ -9,7 +9,7 @@ import PopConfirm from '../pop-confirm';
 
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAnArticle, deleteArticle } from '../../services/blog-service';
 import { useSelector } from 'react-redux';
 
@@ -17,11 +17,14 @@ export const ArticleCard = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const currentUsername = useSelector((state) => state.user.user.username);
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: () => deleteArticle(slug),
     onSuccess: () => {
       console.log('You deleted an article successfully!');
+      queryClient.invalidateQueries(['articles']);
+      queryClient.removeQueries(['article', slug]);
       navigate('/');
     },
     onError: (error) => {
@@ -38,6 +41,7 @@ export const ArticleCard = () => {
   const { data, error, isPending } = useQuery({
     queryKey: ['article', slug],
     queryFn: () => getAnArticle(slug),
+    enabled: !!slug && mutation.isIdle,
   });
 
   if (isPending) {
@@ -54,6 +58,10 @@ export const ArticleCard = () => {
         <Alert message="Something's gone terribly wrong!" type="error" style={{ fontFamily: "'Inter', sans-serif" }} />
       </ul>
     );
+  }
+
+  if (error || !data?.article) {
+    return null;
   }
 
   const { author, body, createdAt, favoritesCount, tagList, title, description } = data.article;

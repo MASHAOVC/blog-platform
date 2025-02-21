@@ -27,7 +27,7 @@ export const ArticlesList = () => {
   }, [invalidPage, setPage]);
 
   const { data, error, isPending } = useQuery({
-    queryKey: ['articles', 'global', invalidPage ? 1 : page],
+    queryKey: ['articles', invalidPage ? 1 : page],
     queryFn: () => getRecentArticlesGlobally(invalidPage ? 1 : page),
   });
 
