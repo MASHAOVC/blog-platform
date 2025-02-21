@@ -68,6 +68,23 @@ const putResource = async (url, body) => {
   return data;
 };
 
+const deleteResource = async (url) => {
+  const authToken = localStorage.getItem('authToken');
+
+  const options = {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token ${authToken}`,
+    },
+  };
+
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify({ status: response.status, body: response.statusText }));
+  }
+};
+
 export const getRecentArticlesGlobally = async (page) => {
   const result = await getResource(`https://blog-platform.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`);
 
@@ -108,6 +125,12 @@ export const putToUpdateCurrentUser = async (formData) => {
 
 export const postToCreateAnArticle = async (formData) => {
   const result = await postResource(`https://blog-platform.kata.academy/api/articles`, { article: formData }, true);
+
+  return result;
+};
+
+export const deleteArticle = async (slug) => {
+  const result = await deleteResource(`https://blog-platform.kata.academy/api/articles/${slug}`);
 
   return result;
 };

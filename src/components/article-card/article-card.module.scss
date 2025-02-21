@@ -135,6 +135,10 @@
           color: $color-error;
           width: 78px;
           height: 31px;
+
+          &:hover {
+            cursor: pointer;
+          }
         }
 
         &__button-edit {
@@ -142,6 +146,10 @@
           color: $color-success;
           width: 65px;
           height: 31px;
+          text-decoration: none;
+          align-items: center;
+          justify-content: center;
+          display: flex;
         }
       }
     }

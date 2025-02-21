@@ -7,13 +7,33 @@ import heartIcon from '../../assets/heart.svg';
 
 import PopConfirm from '../pop-confirm';
 
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import { useQuery } from '@tanstack/react-query';
-import { getAnArticle } from '../../services/blog-service';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getAnArticle, deleteArticle } from '../../services/blog-service';
+import { useSelector } from 'react-redux';
 
 export const ArticleCard = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
+  const currentUsername = useSelector((state) => state.user.user.username);
+
+  const mutation = useMutation({
+    mutationFn: () => deleteArticle(slug),
+    onSuccess: () => {
+      console.log('You deleted an article successfully!');
+      navigate('/');
+    },
+    onError: (error) => {
+      try {
+        const errorData = JSON.parse(error.message);
+        console.error('Status:', errorData.status);
+        console.error('Errors:', errorData.body);
+      } catch (error) {
+        console.error('Unexpected error format:', error.body);
+      }
+    },
+  });
 
   const { data, error, isPending } = useQuery({
     queryKey: ['article', slug],
@@ -37,6 +57,10 @@ export const ArticleCard = () => {
   }
 
   const { author, body, createdAt, favoritesCount, tagList, title, description } = data.article;
+
+  const onDelete = () => {
+    mutation.mutate();
+  };
 
   return (
     <article className={styles['article-card']}>
@@ -77,14 +101,24 @@ export const ArticleCard = () => {
               alt="User Avatar"
             />
           </div>
-          {/* <div className={styles['buttons-group']}>
-            <button className={`${styles['buttons-group__button-delete']} ${styles['buttons-group__button']}`}>
-              Delete
-            </button>
-            <button className={`${styles['buttons-group__button-edit']} ${styles['buttons-group__button']}`}>
-              Edit
-            </button>
-          </div> */}
+          {author.username === currentUsername ? (
+            <div className={styles['buttons-group']}>
+              <button
+                onClick={onDelete}
+                className={`${styles['buttons-group__button-delete']} ${styles['buttons-group__button']}`}
+              >
+                Delete
+              </button>
+              <Link
+                to={`/articles/${slug}/edit`}
+                className={`${styles['buttons-group__button-edit']} ${styles['buttons-group__button']}`}
+              >
+                Edit
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
           {/* <PopConfirm/> */}
         </div>
       </header>
