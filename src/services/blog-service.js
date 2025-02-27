@@ -134,3 +134,9 @@ export const deleteArticle = async (slug) => {
 
   return result;
 };
+
+export const putToUpdateAnArticle = async (slug, formData) => {
+  const result = await putResource(`https://blog-platform.kata.academy/api/articles/${slug}`, { article: formData });
+
+  return result;
+};

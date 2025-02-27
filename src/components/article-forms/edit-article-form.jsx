@@ -1,57 +1,66 @@
 import styles from './article-forms.module.scss';
+import { Spin, Alert } from 'antd';
+
+import { ArticleForm } from './article-form';
+
+import { useParams, useNavigate } from 'react-router-dom';
+
+import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
+import { getAnArticle } from '../../services/blog-service';
+import { putToUpdateAnArticle } from '../../services/blog-service';
 
 export const EditArticleForm = () => {
-  return (
-    <form className={styles['create-article-form']}>
-      <h1 className={styles['heading']}>Edit article</h1>
-      <label className={styles['label']}>
-        Title
-        <input className={styles['input-field']} value="Important Article Title" />
-      </label>
-      <label className={styles['label']}>
-        Short description
-        <input className={styles['input-field']} value="Some short description that displays in atricles list" />
-      </label>
-      <label className={styles['label']}>
-        Text
-        <textarea className={`${styles['input-field']} ${styles['article-text']}`} value="Some paragraph in article" />
-      </label>
-      <div className={styles['tags-wrapper']}>
-        <h2 className={styles['tags-wrapper__heading']}>Tags</h2>
-        <div className={styles['tags-wrapper__input-group-wrapper']}>
-          <input className={styles['tags-wrapper__input-field']} value="programming"></input>
-          <button
-            className={`${styles['tags-wrapper__button-delete']} ${styles['tags-wrapper__button']}`}
-            type="button"
-          >
-            Delete
-          </button>
-        </div>
-        <div className={styles['tags-wrapper__input-group-wrapper']}>
-          <input className={styles['tags-wrapper__input-field']} value="haskell"></input>
-          <button
-            className={`${styles['tags-wrapper__button-delete']} ${styles['tags-wrapper__button']}`}
-            type="button"
-          >
-            Delete
-          </button>
-        </div>
-        <div className={styles['tags-wrapper__input-group-wrapper']}>
-          <input className={styles['tags-wrapper__input-field']} value="fp"></input>
-          <button
-            className={`${styles['tags-wrapper__button-delete']} ${styles['tags-wrapper__button']}`}
-            type="button"
-          >
-            Delete
-          </button>
-          <button className={`${styles['tags-wrapper__button-add']} ${styles['tags-wrapper__button']}`} type="button">
-            Add tag
-          </button>
-        </div>
-      </div>
-      <button className={styles['submit-button']} type="submit">
-        Send
-      </button>
-    </form>
-  );
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (formData) => putToUpdateAnArticle(slug, formData),
+    onSuccess: () => {
+      queryClient.removeQueries(['articles']);
+      navigate('/');
+    },
+    onError: (error) => {
+      try {
+        const errorData = JSON.parse(error.message);
+
+        console.error('Status:', errorData.status);
+        console.error('Errors:', errorData.body.errors);
+      } catch (error) {
+        console.error('Unexpected error format:', error);
+      }
+    },
+  });
+
+  const cachedArticle = queryClient.getQueryData(['article', slug]); // Попытка достать статью из кэша
+
+  const { data, error, isPending } = useQuery({
+    queryKey: ['article', slug],
+    queryFn: () => getAnArticle(slug),
+    enabled: !cachedArticle,
+  });
+
+  if (isPending) {
+    return (
+      <form className={styles['create-article-form']}>
+        <Spin size="large" />
+      </form>
+    );
+  }
+
+  if (error || !data?.article) {
+    return (
+      <form className={styles['create-article-form']}>
+        <Alert message="Something's gone terribly wrong!" type="error" style={{ fontFamily: "'Inter', sans-serif" }} />
+      </form>
+    );
+  }
+
+  const { title, description, body, tagList } = data.article;
+
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
+
+  return <ArticleForm title={title} description={description} body={body} tagList={tagList} onSubmit={onSubmit} />;
 };

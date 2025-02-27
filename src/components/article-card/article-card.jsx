@@ -12,8 +12,11 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAnArticle, deleteArticle } from '../../services/blog-service';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export const ArticleCard = () => {
+  const [showPopConfirm, setShowPopConfirm] = useState(false);
+
   const { slug } = useParams();
   const navigate = useNavigate();
   const currentUsername = useSelector((state) => state.user.user.username);
@@ -22,7 +25,6 @@ export const ArticleCard = () => {
   const mutation = useMutation({
     mutationFn: () => deleteArticle(slug),
     onSuccess: () => {
-      console.log('You deleted an article successfully!');
       queryClient.invalidateQueries(['articles']);
       queryClient.removeQueries(['article', slug]);
       navigate('/');
@@ -52,16 +54,12 @@ export const ArticleCard = () => {
     );
   }
 
-  if (error) {
+  if (error || !data?.article) {
     return (
       <ul className={styles['articles-list']}>
         <Alert message="Something's gone terribly wrong!" type="error" style={{ fontFamily: "'Inter', sans-serif" }} />
       </ul>
     );
-  }
-
-  if (error || !data?.article) {
-    return null;
   }
 
   const { author, body, createdAt, favoritesCount, tagList, title, description } = data.article;
@@ -71,7 +69,7 @@ export const ArticleCard = () => {
   };
 
   return (
-    <article className={styles['article-card']}>
+    <article className={styles['article-card']} onClick={() => setShowPopConfirm(false)}>
       <header className={styles['header']}>
         <div className={styles['wrapper']}>
           <div className={styles['title-line']}>
@@ -112,7 +110,10 @@ export const ArticleCard = () => {
           {author.username === currentUsername ? (
             <div className={styles['buttons-group']}>
               <button
-                onClick={onDelete}
+                onClick={(event) => {
+                  setShowPopConfirm(true);
+                  event.stopPropagation();
+                }}
                 className={`${styles['buttons-group__button-delete']} ${styles['buttons-group__button']}`}
               >
                 Delete
@@ -127,7 +128,9 @@ export const ArticleCard = () => {
           ) : (
             ''
           )}
-          {/* <PopConfirm/> */}
+          {showPopConfirm && (
+            <PopConfirm showPopConfirm={showPopConfirm} setShowPopConfirm={setShowPopConfirm} onDelete={onDelete} />
+          )}
         </div>
       </header>
       <main className={styles['main']}>
