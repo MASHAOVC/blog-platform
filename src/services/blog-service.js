@@ -28,8 +28,11 @@ const postResource = async (url, body, withAuth) => {
       'Content-Type': 'application/json',
       Authorization: withAuth ? `Token ${authToken}` : '',
     },
-    body: JSON.stringify(body),
   };
+
+  if (body !== null) {
+    options.body = JSON.stringify(body);
+  }
 
   const response = await fetch(url, options);
   const data = await response.json();
@@ -137,6 +140,18 @@ export const deleteArticle = async (slug) => {
 
 export const putToUpdateAnArticle = async (slug, formData) => {
   const result = await putResource(`https://blog-platform.kata.academy/api/articles/${slug}`, { article: formData });
+
+  return result;
+};
+
+export const postToLikeAnArticle = async (slug) => {
+  const result = await postResource(`https://blog-platform.kata.academy/api/articles/${slug}/favorite`, null, true);
+
+  return result;
+};
+
+export const deleteToUnlikeAnArticle = async (slug) => {
+  const result = await deleteResource(`https://blog-platform.kata.academy/api/articles/${slug}/favorite`);
 
   return result;
 };

@@ -2,12 +2,39 @@ import styles from './article-preview.module.scss';
 import { Image } from 'antd';
 import { avatarFallback } from '../../assets/avatar-fallback';
 import { format } from 'date-fns';
+import unlikedHeart from '../../assets/heart.svg';
+import likedHeart from '../../assets/heart2.svg';
+
+import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import { postToLikeAnArticle, deleteToUnlikeAnArticle } from '../../services/blog-service';
 
 export const ArticlePreview = (props) => {
   const { author, title, description, favoritesCount, tagList, createdAt, slug } = props;
   const safeSlug = encodeURIComponent(slug);
+  // const isAuthorised = useSelector(state => state.user.user.token);
+  const [like, setLike] = useState(false);
+  const [newFavoritesCount, setnewFavoritesCount] = useState(favoritesCount);
+
+  const mutation = useMutation({
+    mutationFn: (newLike) => (newLike ? postToLikeAnArticle(slug) : deleteToUnlikeAnArticle(slug)),
+    onSuccess: (data) => {
+      setnewFavoritesCount(data?.article.favoritesCount);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const toggleLike = () => {
+    setLike((prev) => {
+      mutation.mutate(!prev);
+      return !prev;
+    });
+  };
 
   return (
     <div className={styles['article-preview']}>
@@ -17,10 +44,10 @@ export const ArticlePreview = (props) => {
             {title}
           </Link>
           <span className={styles['header__rating']}>
-            <button className={styles['header__button']}>
-              <img className={styles['header__heart']} src="src/assets/heart.svg" alt="Like this article" />
+            <button className={styles['header__button']} onClick={toggleLike}>
+              <img className={styles['header__heart']} src={like ? likedHeart : unlikedHeart} alt="Like this article" />
             </button>
-            {favoritesCount}
+            {newFavoritesCount}
           </span>
         </header>
         <div className={styles['tags-wrapper']}>
