@@ -19,7 +19,6 @@ export const ArticlePreview = (props) => {
   const mutation = useMutation({
     mutationFn: (newLike) => (newLike ? postToLikeAnArticle(slug) : deleteToUnlikeAnArticle(slug)),
     onSuccess: (data) => {
-      console.log('Mutation success:', data);
       queryClient.setQueryData(['articles', page], (oldArticles) => {
         return {
           ...oldArticles,
@@ -45,7 +44,7 @@ export const ArticlePreview = (props) => {
     },
   });
 
-  const toggleLike = () => {
+  const onToggleLike = () => {
     mutation.mutate(!favorited);
   };
 
@@ -60,7 +59,7 @@ export const ArticlePreview = (props) => {
             <button
               className={`${styles['header__button']} ${isAuthorised ? styles['header__button--active'] : ''}`}
               disabled={isAuthorised ? false : true}
-              onClick={toggleLike}
+              onClick={onToggleLike}
             >
               <img
                 className={styles['header__heart']}

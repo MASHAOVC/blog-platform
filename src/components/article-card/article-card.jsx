@@ -3,14 +3,15 @@ import ReactMarkdown from 'react-markdown';
 import { Spin, Alert, Image } from 'antd';
 import { format } from 'date-fns';
 import { avatarFallback } from '../../assets/avatar-fallback';
-import heartIcon from '../../assets/heart.svg';
+import unlikedHeart from '../../assets/heart.svg';
+import likedHeart from '../../assets/heart2.svg';
 
 import PopConfirm from '../pop-confirm';
 
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getAnArticle, deleteArticle } from '../../services/blog-service';
+import { getAnArticle, deleteArticle, postToLikeAnArticle, deleteToUnlikeAnArticle } from '../../services/blog-service';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
@@ -20,6 +21,7 @@ export const ArticleCard = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const currentUsername = useSelector((state) => state.user.user.username);
+  const isAuthorised = useSelector((state) => state.user.user.token);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -30,6 +32,24 @@ export const ArticleCard = () => {
       navigate('/');
     },
     onError: (error) => {
+      try {
+        const errorData = JSON.parse(error.message);
+        console.error('Status:', errorData.status);
+        console.error('Errors:', errorData.body);
+      } catch (error) {
+        console.error('Unexpected error format:', error.body);
+      }
+    },
+  });
+
+  const mutationForLike = useMutation({
+    mutationFn: (newLike) => (newLike ? postToLikeAnArticle(slug) : deleteToUnlikeAnArticle(slug)),
+    onSuccess: (data) => {
+      queryClient.removeQueries(['articles', page]);
+      queryClient.setQueryData(['article', slug], data);
+    },
+    onError: (error) => {
+      console.error('Like/Unlike error:', error);
       try {
         const errorData = JSON.parse(error.message);
         console.error('Status:', errorData.status);
@@ -62,10 +82,14 @@ export const ArticleCard = () => {
     );
   }
 
-  const { author, body, createdAt, favoritesCount, tagList, title, description } = data.article;
+  const { author, body, createdAt, favoritesCount, tagList, title, description, favorited, page } = data.article;
 
   const onDelete = () => {
     mutation.mutate();
+  };
+
+  const onToggleLike = () => {
+    mutationForLike.mutate(!favorited);
   };
 
   return (
@@ -75,8 +99,16 @@ export const ArticleCard = () => {
           <div className={styles['title-line']}>
             <a className={styles['title-line__title']}>{title}</a>
             <span className={styles['title-line__rating']}>
-              <button className={styles['title-line__button']}>
-                <img className={styles['title-line__heart']} src={heartIcon} alt="Like this article" />
+              <button
+                className={`${styles['title-line__button']} ${isAuthorised ? styles['title-line__button--active'] : ''}`}
+                disabled={isAuthorised ? false : true}
+                onClick={onToggleLike}
+              >
+                <img
+                  className={styles['title-line__heart']}
+                  src={favorited ? likedHeart : unlikedHeart}
+                  alt="Like this article"
+                />
               </button>
               {favoritesCount}
             </span>
