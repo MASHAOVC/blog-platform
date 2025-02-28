@@ -89,7 +89,7 @@
         clip: rect(0 0 0 0);
 
         &:checked + .check__box {
-          background: $color-primary url(src/assets/check.svg) no-repeat center;
+          background: $color-primary url('../../assets/check.svg') no-repeat center;
         }
       }
 
