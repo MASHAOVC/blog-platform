@@ -51,7 +51,7 @@ export const ArticlesList = () => {
   const previews = (data?.articles ?? []).map((article) => {
     return (
       <li key={article.slug}>
-        <ArticlePreview {...article} />
+        <ArticlePreview page={page} {...article} />
       </li>
     );
   });

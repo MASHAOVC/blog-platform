@@ -86,6 +86,14 @@ const deleteResource = async (url) => {
   if (!response.ok) {
     throw new Error(JSON.stringify({ status: response.status, body: response.statusText }));
   }
+
+  // Проверяем тип содержимого
+  const contentType = response.headers.get('Content-Type');
+
+  // Если сервер вернул JSON
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  }
 };
 
 export const getRecentArticlesGlobally = async (page) => {

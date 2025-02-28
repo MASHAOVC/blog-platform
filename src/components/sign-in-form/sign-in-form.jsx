@@ -26,8 +26,6 @@ export const SignInForm = () => {
   const mutation = useMutation({
     mutationFn: (formData) => postToSignIn(formData),
     onSuccess: (data) => {
-      console.log('You logged in successfully!', data);
-
       if (!data?.user.token) {
         throw new Error('No token recieved');
       }

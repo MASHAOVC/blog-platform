@@ -5,35 +5,48 @@ import { format } from 'date-fns';
 import unlikedHeart from '../../assets/heart.svg';
 import likedHeart from '../../assets/heart2.svg';
 
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postToLikeAnArticle, deleteToUnlikeAnArticle } from '../../services/blog-service';
 
 export const ArticlePreview = (props) => {
-  const { author, title, description, favoritesCount, tagList, createdAt, slug } = props;
+  const { author, title, description, favoritesCount, tagList, createdAt, slug, favorited, page } = props;
   const safeSlug = encodeURIComponent(slug);
-  // const isAuthorised = useSelector(state => state.user.user.token);
-  const [like, setLike] = useState(false);
-  const [newFavoritesCount, setnewFavoritesCount] = useState(favoritesCount);
+  const isAuthorised = useSelector((state) => state.user.user.token);
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (newLike) => (newLike ? postToLikeAnArticle(slug) : deleteToUnlikeAnArticle(slug)),
     onSuccess: (data) => {
-      setnewFavoritesCount(data?.article.favoritesCount);
+      console.log('Mutation success:', data);
+      queryClient.setQueryData(['articles', page], (oldArticles) => {
+        return {
+          ...oldArticles,
+          articles: oldArticles.articles.map((article) => {
+            if (article.slug === data.article.slug) {
+              return data.article;
+            } else {
+              return article;
+            }
+          }),
+        };
+      });
     },
     onError: (error) => {
-      console.error(error);
+      console.error('Like/Unlike error:', error);
+      try {
+        const errorData = JSON.parse(error.message);
+        console.error('Status:', errorData.status);
+        console.error('Errors:', errorData.body);
+      } catch (error) {
+        console.error('Unexpected error format:', error.body);
+      }
     },
   });
 
   const toggleLike = () => {
-    setLike((prev) => {
-      mutation.mutate(!prev);
-      return !prev;
-    });
+    mutation.mutate(!favorited);
   };
 
   return (
@@ -44,10 +57,18 @@ export const ArticlePreview = (props) => {
             {title}
           </Link>
           <span className={styles['header__rating']}>
-            <button className={styles['header__button']} onClick={toggleLike}>
-              <img className={styles['header__heart']} src={like ? likedHeart : unlikedHeart} alt="Like this article" />
+            <button
+              className={`${styles['header__button']} ${isAuthorised ? styles['header__button--active'] : ''}`}
+              disabled={isAuthorised ? false : true}
+              onClick={toggleLike}
+            >
+              <img
+                className={styles['header__heart']}
+                src={favorited ? likedHeart : unlikedHeart}
+                alt="Like this article"
+              />
             </button>
-            {newFavoritesCount}
+            {favoritesCount}
           </span>
         </header>
         <div className={styles['tags-wrapper']}>
