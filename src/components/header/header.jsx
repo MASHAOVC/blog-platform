@@ -18,6 +18,7 @@ export const Header = () => {
     dispatch(logOut());
     setTimeout(() => {
       navigate('/');
+      window.location.reload();
     }, 0); // Пытаемся дать время на обновление состояния
   };
 

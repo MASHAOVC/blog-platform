@@ -11,7 +11,6 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const ArticlesList = () => {
-  // const [page, setPage] = useState(1);
   const location = useLocation();
   const navigate = useNavigate();
 
