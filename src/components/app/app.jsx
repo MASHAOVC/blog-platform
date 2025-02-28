@@ -1,7 +1,7 @@
 import styles from './app.module.scss';
 import { ConfigProvider, Spin } from 'antd';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -64,7 +64,7 @@ export const App = () => {
         },
       }}
     >
-      <BrowserRouter>
+      <HashRouter>
         <div className={styles['app']}>
           <Suspense fallback={<Spin size="large" />}>
             <Header />
@@ -88,7 +88,7 @@ export const App = () => {
             </Routes>
           </Suspense>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   );
 };
